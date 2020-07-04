@@ -1,6 +1,6 @@
 {
-    "name": "portofolio",
-    "short_name": "portofolio",
+    "name": "uas_web",
+    "short_name": "uas_web",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

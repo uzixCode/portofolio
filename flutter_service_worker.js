@@ -3,57 +3,32 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "assets/AssetManifest.json": "2ea4d68157b6cb9eb239f404cfa98394",
-"assets/assets/blender.png": "08d2cdd18981f47986121669416f34ca",
+  "assets/AssetManifest.json": "988d70b5041b3ddadc0e9db7179567e8",
 "assets/assets/Bob.flr": "5732ebbced549bce28168a0dc2ba93cc",
-"assets/assets/c%2523.png": "58043983aceb1ae5ae006fabb68082ff",
-"assets/assets/coding.jpg": "486e7e82f6f7f8d40c53342c58dbbfb0",
-"assets/assets/eat.jpg": "4e35996152d8ed423a36dc1d47b25379",
-"assets/assets/flutter.png": "b732e72c5a268a16b2d4157e1797bbf5",
-"assets/assets/frame.flr": "07dfe2193381c449b98c312a013118d5",
-"assets/assets/frames.flr": "68d3ae3d1fcf2658b3c5a918d322754c",
-"assets/assets/intro.flr": "3ec5cd241c72ef914a76be34056fa23e",
-"assets/assets/iot.jpg": "1dab248b238b611e9d9863668cb8f51c",
-"assets/assets/Led.flr": "ff09c30ca92109871058a295ce1e594d",
-"assets/assets/option.flr": "68ed26953bce3045335d2d8bc9bf9c6c",
-"assets/assets/parallax0.png": "bac00e42cc8bf06df9d05485095469da",
-"assets/assets/parallax1.png": "95044d146ce7064a1e7de6feeb221a47",
-"assets/assets/parallax2.png": "ef2bd2cdbfa5dc60c8ebf6f05dd292c4",
-"assets/assets/parallax3.png": "2c1791eb9f8c8abd3b32bd78e25b1735",
-"assets/assets/parallax4.png": "85af35fc3d60d06c95e014b2d28e9064",
-"assets/assets/parallax5.png": "22944f56a35ee5d3ae67bad3ca8188b9",
-"assets/assets/parallax6.png": "62e88f1523433e6858111393766fcbb7",
-"assets/assets/parallax7.png": "9aadff21aad1be958be0199d07ea03d9",
-"assets/assets/parallax8.png": "a1124ff21bbefb8a1c63fdd525891a80",
-"assets/assets/partikel.flr": "5564910df19836be8ff1f70dab9f25f0",
-"assets/assets/pp.flr": "2645f06ab6bfb84bdeda4494bcfe0486",
+"assets/assets/greet.jpg": "1dbac282bf288a590781d95251fd223f",
+"assets/assets/plank.png": "0538f5c3730787fb535502fe46d863da",
 "assets/assets/pp.jpg": "485df18d0c0933617586ee53d03ba924",
-"assets/assets/ppt.flr": "1f7b62aba25aaa7072db45378c17375b",
-"assets/assets/python'.png": "0e665c221f5a3051c6b39c4c20405052",
-"assets/assets/sleep.jpg": "0e121044160ed8a09a3591619a756904",
-"assets/assets/study.jpg": "fd707a6e122804030d65293749c8fcc5",
-"assets/assets/Trim.flr": "731a55451236c52e5be6dbd71ce158a8",
-"assets/assets/unity.png": "320a9d26c7f179f26db4f5a58a226951",
-"assets/assets/uzix.flr": "7500e104220f6690d4a3ef44d2fbf646",
+"assets/assets/sukses.flr": "2f082af9ad9f9c73fb716ae1c6bff9a1",
+"assets/assets/Teddy.flr": "21ea0a00adb2b431a132689dc3903f4a",
+"assets/assets/uzixAnim.flr": "9eb15c23134ac97037f187ca2499f179",
 "assets/FontManifest.json": "01700ba55b08a6141f33e168c4a6c22f",
 "assets/fonts/MaterialIcons-Regular.ttf": "56d3ffdef7a25659eab6a68a3fbfaf16",
-"assets/LICENSE": "a3fc44f4509ec8055c727cbd3b4318a8",
+"assets/NOTICES": "5dcd60efb367f44b5a8e4ab01a9f675e",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "115e937bb829a890521f72d2e664b632",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
-"index.html": "9ee6ab9fed7aaeb93de72fc59dfd1473",
-"/": "9ee6ab9fed7aaeb93de72fc59dfd1473",
-"main.dart.js": "104ce9778415f6d540119068625de51d",
-"manifest.json": "fd810f7e713bc9aa460e94ac22616723",
-"pp.jpg": "485df18d0c0933617586ee53d03ba924"
+"index.html": "8eeede7f72e3a8aede80d64648f36f2e",
+"/": "8eeede7f72e3a8aede80d64648f36f2e",
+"main.dart.js": "97bfb7a116e2665a53f226cfb5cd69e6",
+"manifest.json": "7334f15794233c28e73063881bc38ea9"
 };
 
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = [
-  "main.dart.js",
-"/",
+  "/",
+"main.dart.js",
 "index.html",
 "assets/LICENSE",
 "assets/AssetManifest.json",
@@ -63,7 +38,8 @@ const CORE = [
 self.addEventListener("install", (event) => {
   return event.waitUntil(
     caches.open(TEMP).then((cache) => {
-      return cache.addAll(CORE);
+      // Provide a no-cache param to ensure the latest version is downloaded.
+      return cache.addAll(CORE.map((value) => new Request(value, {'cache': 'no-cache'})));
     })
   );
 });
@@ -82,6 +58,7 @@ self.addEventListener("activate", function(event) {
       // When there is no prior manifest, clear the entire cache.
       if (!manifest) {
         await caches.delete(CACHE_NAME);
+        contentCache = await caches.open(CACHE_NAME);
         for (var request of await tempCache.keys()) {
           var response = await tempCache.match(request);
           await contentCache.put(request, response);
@@ -131,6 +108,10 @@ self.addEventListener("activate", function(event) {
 self.addEventListener("fetch", (event) => {
   var origin = self.location.origin;
   var key = event.request.url.substring(origin.length + 1);
+  // Redirect URLs to the index.html
+  if (event.request.url == origin || event.request.url.startsWith(origin + '/#')) {
+    key = '/';
+  }
   // If the URL is not the the RESOURCE list, skip the cache.
   if (!RESOURCES[key]) {
     return event.respondWith(fetch(event.request));
@@ -139,8 +120,10 @@ self.addEventListener("fetch", (event) => {
     .then((cache) =>  {
       return cache.match(event.request).then((response) => {
         // Either respond with the cached resource, or perform a fetch and
-        // lazily populate the cache.
-        return response || fetch(event.request).then((response) => {
+        // lazily populate the cache. Ensure the resources are not cached
+        // by the browser for longer than the service worker expects.
+        var modifiedRequest = new Request(event.request, {'cache': 'no-cache'});
+        return response || fetch(modifiedRequest).then((response) => {
           cache.put(event.request, response.clone());
           return response;
         });
@@ -149,3 +132,35 @@ self.addEventListener("fetch", (event) => {
   );
 });
 
+self.addEventListener('message', (event) => {
+  // SkipWaiting can be used to immediately activate a waiting service worker.
+  // This will also require a page refresh triggered by the main worker.
+  if (event.message == 'skipWaiting') {
+    return self.skipWaiting();
+  }
+
+  if (event.message = 'downloadOffline') {
+    downloadOffline();
+  }
+});
+
+// Download offline will check the RESOURCES for all files not in the cache
+// and populate them.
+async function downloadOffline() {
+  var resources = [];
+  var contentCache = await caches.open(CACHE_NAME);
+  var currentContent = {};
+  for (var request of await contentCache.keys()) {
+    var key = request.url.substring(origin.length + 1);
+    if (key == "") {
+      key = "/";
+    }
+    currentContent[key] = true;
+  }
+  for (var resourceKey in Object.keys(RESOURCES)) {
+    if (!currentContent[resourceKey]) {
+      resources.add(resourceKey);
+    }
+  }
+  return Cache.addAll(resources);
+}
